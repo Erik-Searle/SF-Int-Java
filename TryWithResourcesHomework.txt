@@ -1,0 +1,39 @@
+Try-with-resources exercise.
+
+The try with resources mechanism makes a best effort to close all "resources" that are declared in the resources block. In this exercise you will build code that demonstrates the inner workings of this, and simultaneously allows you to practice the coding of a try-with-resources construct.
+
+1) Create a class "MyResource" which implements the AutoCloseable interface
+   - Have the constructor take a String argument which is stored in the object
+   - Arrange for the constructor to print a message "initializing MyResource" followed by the String argument
+   - Arrange that the close method of MyResource prints a message "closing MyResource" followed by the initialzing String
+   - no other behavior is necessary in this class
+
+2) Create a class "UseTWR"
+   - give the class a static method called "mightBreak"
+   - Use a try with resources structure to initialize two instances of MyResource
+   - give each MyResource a different message (perhaps "first" and "second", based on the order in which they're created in the program text)
+   - Provide a body for the try block such that you can either let the block terminate normally (no exceptions) or throw a checked exception
+   - Do not provide a catch block for this exception, instead declare it in the method declaration
+
+3) Create a main method in the class UseTWR
+   - write code to invoke the method mightBreak
+   - add a try / catch block to handle the exception from the method, and print out the type of the exception if it arises
+
+4) Run the example, ensuring that you exercise both situations: throwing an exception in the try, and normal completion of the try.
+   - Do the resources report being closed?
+   - What do you notice about the order of opening and closing of the resources?
+
+5) Add an explicit finally block to the mightBreak method's body
+   - print a message "in explicit finally"
+   - run the code. What do you notice about the order of the compiler generated close operations and the execution of the explicit finally block.
+
+6) Modify the close() method implementation in MyResource
+   - arrange that it might throw an IOException.
+   - run the code and see how that exception alters the behavior
+   - ensure that in your catch block in the main method, you print the full stack trace of the exception and/or extract and print the "suppressed" exceptions
+
+7) Recreate the mightBreak method using a traditional try/finally to close the resources.
+   - write code to exercise this too.
+   - what happens if the close exception arises when the try body had thrown an IOException?
+
+
