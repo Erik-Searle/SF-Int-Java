@@ -42,6 +42,10 @@ public final class Student {
         ", courses=" + courses +
         '}';
   }
+
+  public static Criterion getNotSmartnessCriterion() {
+    return s -> s.getGrade() < 3.5;
+  }
 /*
   Business domain requirements for a student:
    - each has a name
