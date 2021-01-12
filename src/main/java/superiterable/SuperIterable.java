@@ -3,6 +3,7 @@ package superiterable;
 import students.Student;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Function;
@@ -15,10 +16,23 @@ public class SuperIterable<E> implements Iterable<E> {
     this.self = self;
   }
 
+  // map of this kind makes the container a "Functor"
   public <F> SuperIterable<F> map(Function<E, F> op) {
     List<F> out = new ArrayList<>();
     for (E e : self) {
       out.add(op.apply(e));
+    }
+    return new SuperIterable<>(out);
+  }
+
+  // flatMap of this kind makes the container a "Monad"
+  public <F> SuperIterable<F> flatMap(Function<E, SuperIterable<F>> op) {
+    List<F> out = new ArrayList<>();
+    for (E e : self) {
+      SuperIterable<F> manyF = op.apply(e);
+      for (F f : manyF) {
+        out.add(f);
+      }
     }
     return new SuperIterable<>(out);
   }
@@ -110,7 +124,10 @@ public class SuperIterable<E> implements Iterable<E> {
      */
     sisRoster
 //        .map(s -> s.getCourses())
-        .map(Student::getCourses)
+        .flatMap(s -> new SuperIterable<>(s.getCourses()))
         .forEach(System.out::println);
+
+
+
   }
 }
