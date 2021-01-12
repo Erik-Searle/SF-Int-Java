@@ -31,27 +31,28 @@ public class SchoolCleaned {
     );
     showAll(getByCriterion(roster, s -> s.getCourses().size() < 4));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // Lab 3
     // show all student who:
     // have grades above 2.5
+    showAll(getByCriterion(roster, s -> s.getGrade() > 2.5));
     // take more than 1 course
-    // have grades in rang 2.5 to 3.7
+    showAll(getByCriterion(roster, s -> s.getCourses().size() > 1));
+    // have grades in range 2.5 to 3.7
+    showAll(getByCriterion(roster, s -> s.getGrade() > 2.5 && s.getGrade() < 3.7));
+    showAll(getByCriterion(roster, s -> {
+      double grade = s.getGrade();
+      return grade > 2.5 && grade < 3.7;
+    }));
     // have grade > 3.7 or take more than 2 classes
+    showAll(getByCriterion(roster,
+        s -> s.getGrade() > 2.5 && s.getCourses().size() > 2));
   }
+
+  // final exercise:
+  // create List<String>
+  // -- order ascending alphabetic
+  // -- order descending length
+  // order student list -- List.of is IMMUTABLE, so you must first create
+  // a mutable list wrapped around the students
+  // -- by ascending grade
 }
