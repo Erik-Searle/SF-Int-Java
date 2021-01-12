@@ -63,5 +63,16 @@ public class SuperIterable<E> implements Iterable<E> {
           })
       .forEach(System.out::println);
     }
+
+    /*
+    Lab:
+    Create a SuperIterable<Student> use it to print out
+     - all smart students in the form <name> has grade <grade>
+     - all the "less enthusiastic students" with a message <student.toString> isn't very enthusiastic
+     - all students in the form <name> takes [list of courses]
+
+     IN EVERY CASE the LAST element in the "pipeline" MUST BE EXACTLY
+     .forEach(System.out::println);
+     */
   }
 }
