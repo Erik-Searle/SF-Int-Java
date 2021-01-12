@@ -67,6 +67,7 @@ public class SuperIterable<E> implements Iterable<E> {
     /*
     Lab:
     Create a SuperIterable<Student> use it to print out
+
      - all smart students in the form <name> has grade <grade>
      - all the "less enthusiastic students" with a message <student.toString> isn't very enthusiastic
      - all students in the form <name> takes [list of courses]
@@ -74,5 +75,42 @@ public class SuperIterable<E> implements Iterable<E> {
      IN EVERY CASE the LAST element in the "pipeline" MUST BE EXACTLY
      .forEach(System.out::println);
      */
+
+    List<Student> roster = List.of(
+        Student.of("Fred", 3.6, "Math", "Physics"),
+        Student.of("Jim", 2.2, "Art"),
+        Student.of("Jeremy", 2.5, "Art", "Political Science", "Journalism"),
+        Student.of("Sheila", 3.9, "Math", "Physics", "Quantum Mechanics", "Astrophysics")
+    );
+    SuperIterable<Student> sisRoster = new SuperIterable<>(roster);
+    sisRoster
+        .filter(s -> s.getGrade() > 3)
+        .map(s -> String.format("%s has grade %f", s.getName(), s.getGrade()))
+        .forEach(System.out::println);
+
+//    "less enthusiastic students" with a message <student.toString> isn't very enthusiastic
+    sisRoster
+        .filter(s -> s.getCourses().size() < 4)
+        .map(s -> s + " isn't very enthusiastic")
+        .forEach(System.out::println);
+
+//    all students in the form <name> takes [list of courses]
+    sisRoster
+        .map(s -> s.getName() + " takes " + s.getCourses())
+        .forEach(System.out::println);
+
+    // Print all the courses:
+    /*
+    Math
+    Physics
+    Art
+    Political Science
+    ...
+    Quantum Mechanics
+     */
+    sisRoster
+//        .map(s -> s.getCourses())
+        .map(Student::getCourses)
+        .forEach(System.out::println);
   }
 }
