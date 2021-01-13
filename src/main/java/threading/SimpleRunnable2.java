@@ -1,7 +1,7 @@
 package threading;
 
 class MyTask2 implements Runnable {
-  public long counter = 0;
+  public volatile long counter = 0;
 
   @Override
   public void run() {
@@ -20,7 +20,9 @@ public class SimpleRunnable2 {
     t1.start(); // NOT t1.run() :)
     Thread t2 = new Thread(r);
     t2.start();
-    Thread.sleep(1_000);
+//    Thread.sleep(1_000);
+    t1.join();
+    t2.join(); // last action of at thread happens-before 'noticing" that a thread has died
     System.out.println("Counter value is " + r.counter);
     System.out.println(Thread.currentThread().getName() + " ending");
   }
