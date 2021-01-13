@@ -1,7 +1,10 @@
 package streaming;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 public class FinalLab {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Throwable {
     /*
     Goal: Create a "concordance" -- table of word frequencies
     200 most frequent words, in descending order
@@ -9,6 +12,7 @@ public class FinalLab {
     1) Read a file to create a stream
        - look in java.nio.file.Files
        - use forEach to print the entire book, off that stream
+
     2) Convert from Stream of lines to a Stream of words
        - Pattern (regular expression) "\\W+"
        - ONE line -> MANY words... which method must we use
@@ -34,5 +38,8 @@ public class FinalLab {
     10) print is all.
 
      */
+
+    Files.lines(Path.of("PrideAndPrejudice.txt"))
+        .forEach(System.out::println);
   }
 }
