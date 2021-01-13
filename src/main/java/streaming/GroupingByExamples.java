@@ -29,5 +29,25 @@ public class GroupingByExamples {
         .map(e -> String.format("Students with grade %s are %s", e.getKey(), e.getValue()))
         .forEach(System.out::println);
 
+    System.out.println("-------------------");
+    roster.stream()
+        .collect(Collectors.groupingBy(
+            s -> getLetterGrade(s),
+            Collectors.counting()))
+        .entrySet().stream()
+        .forEach(System.out::println);
+
+    System.out.println("-------------------");
+    roster.stream()
+        .collect(Collectors.groupingBy(
+            s -> getLetterGrade(s),
+            Collectors.mapping(
+                s -> s.getName(),
+                Collectors.joining(", "))))
+        .entrySet().stream()
+        .map(e -> "Students with grade " + e.getKey() + " are " + e.getValue())
+        .forEach(System.out::println);
+
+
   }
 }
